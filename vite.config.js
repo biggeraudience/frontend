@@ -4,10 +4,10 @@ import svgr from 'vite-plugin-svgr';
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/', // Ensure the base path is correctly set for deployment
   plugins: [
     react(),
     svgr({
-      // svgr options if needed, e.g., icon: true
       svgrOptions: {
         icon: true,
       },
@@ -15,7 +15,6 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      // Optional: simplify imports
       '@': '/src',
     },
   },
