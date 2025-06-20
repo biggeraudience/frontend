@@ -1,0 +1,73 @@
+// src/styles/pages/_splash.scss
+// ALL @use statements MUST come FIRST at the very top of the file
+@use "../abstracts/variables" as *; // Corrected path, use as *
+@use "../abstracts/mixins" as *;    // Corrected path, use as *
+@use "../abstracts/fonts" as *;     // Corrected path, use as *
+
+// --- No other Sass or CSS rules should appear before the @use rules ---
+
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: $black;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.static-image,
+.montage-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.montage-video {
+  opacity: 0;
+  z-index: 2;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: $black;
+  opacity: 1;
+  z-index: 3;
+}
+
+.content-container {
+  @include center-flex;
+  position: relative;
+  z-index: 4;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.logo-box {
+  padding: 0.5rem 1rem;
+  background: $white;
+  border: 3px solid $brand-red;
+  opacity: 0;
+  transform: scale(0);
+  width: 20rem;
+}
+
+.logo-text {
+  font-family: $font-orbitron;
+  color: $brand-red;
+  white-space: nowrap;
+  font-size: 1.2rem;
+}
+
+.tagline {
+  margin-top: 1rem;
+  font-family: $font-orbitron;
+  color: $white;
+  opacity: 0;
+  font-size: 1.25rem;
+}

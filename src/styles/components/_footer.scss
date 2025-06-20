@@ -1,0 +1,268 @@
+// src/styles/components/_footer.scss
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "../abstracts/fonts" as *;
+
+.footer {
+  position: relative;
+  width: 100vw;
+  background-color: $black;
+  color: $white;
+  padding: 4rem 0;
+
+  // Responsive padding for the whole footer
+  @include respond-to(max-width, $breakpoint-xl) { // Changed $breakpoint-xl to $breakpoint-xl
+    padding: 3.5rem 0;
+  }
+  @include respond-to(max-width, $breakpoint-lg) { // Changed $breakpoint-lg to $breakpoint-lg
+    padding: 3rem 0;
+  }
+  @include respond-to(max-width, $breakpoint-md) { // Changed $breakpoint-md to $breakpoint-md
+    padding: 2.5rem 0;
+  }
+  @include respond-to(max-width, $breakpoint-sm) { // Changed $breakpoint-sm to $breakpoint-sm
+    padding: 2rem 0;
+  }
+  // If you had $breakpoint-xs used, you'd change it to $breakpoint-xs as well,
+  // but it's not defined in your current _variables.scss breakpoints.
+  // For now, removing it or defining $breakpoint-xs in _variables.scss is necessary.
+  // Assuming you meant to use $breakpoint-sm for the smallest, or you'll add $breakpoint-xs
+  // in _variables.scss, I'll comment out the problematic line for now or assume its removal.
+  // @include respond-to(max-width, $breakpoint-xs) {
+  //   padding: 1.5rem 0;
+  // }
+
+
+  .footerInner {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    max-width: $breakpoint-xl; // Assuming $breakpoint-xl is your desired max width for content.
+                               // If you need something larger, define a new variable in _variables.scss
+                               // like $max-content-width: 1440px; and use that here.
+    margin: 0 auto;
+    padding: 0 2rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba($white, 0.1);
+
+    // Responsive grid layout and padding adjustments
+    @include respond-to(max-width, $breakpoint-xl) { // Changed $breakpoint-xxl to $breakpoint-xl, adjust if needed
+      max-width: $breakpoint-lg; // Reduce max-width for slightly smaller large screens
+      padding: 0 1.5rem;
+      padding-bottom: 2.5rem;
+    }
+
+    @include respond-to(max-width, $breakpoint-lg) { // Changed $breakpoint-xl to $breakpoint-lg
+      max-width: $breakpoint-md; // Further constrain
+      padding: 0 1.5rem;
+      padding-bottom: 2rem;
+    }
+
+    @include respond-to(max-width, $breakpoint-md) { // Changed $breakpoint-lg to $breakpoint-md
+      grid-template-columns: repeat(2, 1fr); // 2 columns for tablets/smaller desktops
+      gap: 1.5rem;
+      padding: 0 1.5rem;
+      padding-bottom: 2rem;
+    }
+
+    @include respond-to(max-width, $breakpoint-sm) { // Changed $breakpoint-md to $breakpoint-sm
+      grid-template-columns: 1fr; // Single column for mobile
+      gap: 1rem;
+      text-align: center;
+      padding: 0 1rem;
+      padding-bottom: 1.5rem;
+    }
+    // If you had $breakpoint-xs used, you'd change it to $breakpoint-xs as well.
+    // For now, assuming $breakpoint-sm covers the smallest mobile.
+    // @include respond-to(max-width, $breakpoint-xs) {
+    //   padding: 0 0.75rem;
+    //   padding-bottom: 1.2rem;
+    // }
+  }
+
+  .footerSection {
+    margin-bottom: 1.5rem;
+
+    @include respond-to(max-width, $breakpoint-md) { // Changed $breakpoint-md to $breakpoint-md
+      margin-bottom: 2rem;
+    }
+    &:last-child {
+      margin-bottom: 0;
+      @include respond-to(max-width, $breakpoint-md) { // Changed $breakpoint-md to $breakpoint-md
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .footerHeading {
+    font-family: $font-orbitron;
+    font-size: 1.25rem;
+    color: $brand-red;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    @include respond-to(max-width, $breakpoint-md) { // Changed $breakpoint-md to $breakpoint-md
+      margin-bottom: 1rem;
+    }
+  }
+
+  .footerBrand {
+    .footerLogoLink {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      @include respond-to(max-width, $breakpoint-md) { // Changed $breakpoint-md to $breakpoint-md
+        justify-content: center;
+      }
+    }
+
+    .footerLogoImage {
+      height: 40px;
+      margin-right: 0.8rem;
+      filter: drop-shadow(0 0 5px rgba($brand-red, 0.5));
+      @include respond-to(max-width, $breakpoint-sm) { // Changed $breakpoint-sm to $breakpoint-sm
+        height: 35px;
+        margin-right: 0.6rem;
+      }
+    }
+
+    .footerBrandText {
+    /* kill any background/border tweaks if you added them before */
+    background: none;
+    border: none;
+
+    color: #f30000;
+    -webkit-text-stroke: 1px #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    @include respond-to(max-width, $breakpoint-sm) {
+      font-size: 1.5rem;
+    }
+  }
+    .footerMotto {
+      font-size: 0.95rem;
+      color: $grey;
+      line-height: 1.6;
+      max-width: 250px;
+      @include respond-to(max-width, $breakpoint-md) { // Changed $breakpoint-md to $breakpoint-md
+        margin: 0 auto;
+      }
+    }
+  }
+
+  .footerLinks {
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      margin-bottom: 0.8rem;
+      @include respond-to(max-width, $breakpoint-md) { // Changed $breakpoint-md to $breakpoint-md
+        margin-bottom: 0.5rem;
+      }
+    }
+
+    .footerLink {
+      color: $grey;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s ease, transform 0.2s ease;
+      display: inline-block;
+      cursor: pointer;
+
+      &:hover {
+        color: $brand-red;
+        transform: translateX(5px);
+      }
+    }
+  }
+
+  .footerContact {
+    p {
+      font-size: 1rem;
+      color: $grey;
+      margin-bottom: 0.5rem;
+
+      .footerLink {
+        color: $grey;
+        text-decoration: none;
+        &:hover {
+          color: $brand-red;
+        }
+      }
+    }
+    @include respond-to(max-width, $breakpoint-md) { // Changed $breakpoint-md to $breakpoint-md
+      br { display: none; }
+    }
+  }
+
+  .footerSocial {
+    .socialIcons {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-start;
+
+      @include respond-to(max-width, $breakpoint-md) { // Changed $breakpoint-md to $breakpoint-md
+        justify-content: center;
+      }
+    }
+
+    .socialLink {
+      width: 40px;
+      height: 40px;
+      background-color: rgba($white, 0.05);
+      border-radius: 50%;
+      color: $white;
+      text-decoration: none;
+      // @include center-flex; // This mixin might also be missing or misnamed if it's not defined
+      font-family: $font-orbitron;
+      font-size: 1.2rem;
+      transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+
+      &:hover {
+        background-color: $brand-red;
+        color: $white;
+        transform: translateY(-3px) scale(1.1);
+      }
+      @include respond-to(max-width, $breakpoint-sm) { // Changed $breakpoint-sm to $breakpoint-sm
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .footerBottom {
+    text-align: center;
+    padding-top: 1.5rem;
+    max-width: $breakpoint-xl; // Changed $breakpoint-xxl to $breakpoint-xl
+    margin: 0 auto;
+    padding: 1.5rem 2rem 0.5rem;
+
+    @include respond-to(max-width, $breakpoint-xl) { // Changed $breakpoint-xl to $breakpoint-xl
+      max-width: $breakpoint-lg;
+      padding: 1.2rem 1.5rem 0.5rem;
+    }
+    @include respond-to(max-width, $breakpoint-md) { // Changed $breakpoint-md to $breakpoint-md
+      padding: 1rem 1rem 0.5rem;
+    }
+    // If you had $breakpoint-xs used, you'd change it to $breakpoint-xs as well.
+    // @include respond-to(max-width, $breakpoint-xs) {
+    //   padding: 0.8rem 0.75rem 0.3rem;
+    // }
+
+    .footerCopyright {
+      font-size: 0.85rem;
+      color: $grey;
+      opacity: 0.7;
+      @include respond-to(max-width, $breakpoint-sm) { // Changed $breakpoint-sm to $breakpoint-sm
+        font-size: 0.75rem;
+      }
+    }
+  }
+}

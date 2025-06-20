@@ -1,0 +1,43 @@
+// src/styles/sections/_featured-vehicles.scss
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.featured-vehicles {
+  text-align: center;
+
+  .section-headline {
+    font-size: 2.8rem;
+    margin-bottom: 3rem;
+    color: $black;
+
+    @include respond-to(max-width, $breakpoint-md) { // Changed $breakpoint-md to $breakpoint-md
+      font-size: 2.2rem;
+      margin-bottom: 2rem;
+    }
+  }
+
+  .vehicle-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+    justify-items: center;
+
+    @include respond-to(max-width, $breakpoint-md) { // Changed $breakpoint-md to $breakpoint-md
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    @include respond-to(max-width, $breakpoint-sm) { // Changed $breakpoint-sm to $breakpoint-sm
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+
+  .secondary-button {
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba($black, 0.2);
+    }
+  }
+}

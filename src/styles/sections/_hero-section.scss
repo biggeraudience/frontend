@@ -1,0 +1,127 @@
+// src/styles/sections/_hero-section.scss
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.hero-section {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $white;
+  text-align: center;
+  margin: 0;
+
+  .hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+
+    .hero-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.6);
+      animation: fadeInZoom 2s ease-out forwards;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.5);
+    }
+  }
+
+  .hero-content {
+    z-index: 1;
+    padding: 0 1rem;
+
+    .hero-headline {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      color: $white;
+      animation: fadeUp 1s ease-out forwards;
+      opacity: 0;
+      transform: translateY(20px);
+      animation-delay: 0.5s;
+
+      @include respond-to(max-width, $breakpoint-lg) { // Changed $bp-lg to $breakpoint-lg
+        font-size: 3.5rem;
+      }
+      @include respond-to(max-width, $breakpoint-md) { // Changed $bp-md to $breakpoint-md
+        font-size: 2.8rem;
+      }
+      @include respond-to(max-width, $breakpoint-sm) { // Changed $bp-sm to $breakpoint-sm
+        font-size: 2rem;
+      }
+    }
+
+    .hero-tagline {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      color: lighten($white, 10%);
+      animation: fadeUp 1s ease-out forwards;
+      opacity: 0;
+      transform: translateY(20px);
+      animation-delay: 0.7s;
+
+      @include respond-to(max-width, $breakpoint-md) { // Changed $bp-md to $breakpoint-md
+        font-size: 1.2rem;
+      }
+      @include respond-to(max-width, $breakpoint-sm) { // Changed $bp-sm to $breakpoint-sm
+        font-size: 1rem;
+      }
+    }
+
+    .hero-cta {
+      animation: fadeIn 1s ease-out forwards;
+      opacity: 0;
+      animation-delay: 0.9s;
+
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 16px rgba($brand-red, 0.4);
+      }
+    }
+  }
+}
+
+// Keyframe animations for Hero Section
+@keyframes fadeInZoom {
+  from {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

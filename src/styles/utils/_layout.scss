@@ -1,0 +1,5 @@
+.app-content {
+  padding-top: 60px;   // match navbar height
+  padding-bottom: 60px; // match footer height
+  min-height: calc(100vh - 120px);
+}

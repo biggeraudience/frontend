@@ -1,0 +1,399 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "../abstracts/fonts" as *;
+
+.vehicle-detail-page {
+    padding: $spacing-xl 0; // Top/bottom padding
+    background-color: $white; // Ensure a clean background
+
+    // Loading state styling
+    .vehicle-detail-loading-state {
+        text-align: center;
+        padding: $spacing-xxl;
+        min-height: 50vh; // Ensure it takes up some space
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        p {
+            font-size: 1.2rem;
+            color: $grey-dark;
+            margin-bottom: $spacing-lg;
+        }
+
+        .button {
+            margin-top: $spacing-md;
+        }
+    }
+
+    // Common section styling
+    section {
+        margin-bottom: $spacing-xxl; // Space between major sections
+        padding: 0 $spacing-lg; // Horizontal padding for content alignment
+
+        @include respond-to(max-width, $breakpoint-lg) {
+            padding: 0 $spacing-md;
+        }
+        @include respond-to(max-width, $breakpoint-md) {
+            padding: 0 $spacing-sm;
+        }
+    }
+
+    h1 {
+        font-size: 3.5rem;
+        color: $black;
+        text-align: center;
+        margin-bottom: $spacing-md;
+
+        @include respond-to(max-width, $breakpoint-lg) {
+            font-size: 3rem;
+        }
+        @include respond-to(max-width, $breakpoint-md) {
+            font-size: 2.5rem;
+        }
+        @include respond-to(max-width, $breakpoint-sm) {
+            font-size: 2rem;
+        }
+    }
+
+    h2 {
+        font-size: 2.2rem;
+        color: $black;
+        margin-bottom: $spacing-lg;
+        text-align: center;
+
+        @include respond-to(max-width, $breakpoint-lg) {
+            font-size: 2rem;
+        }
+        @include respond-to(max-width, $breakpoint-md) {
+            font-size: 1.8rem;
+        }
+        @include respond-to(max-width, $breakpoint-sm) {
+            font-size: 1.6rem;
+        }
+    }
+
+    h3 {
+        font-size: 1.6rem;
+        color: $black;
+        margin-bottom: $spacing-md;
+        text-align: center;
+
+        @include respond-to(max-width, $breakpoint-md) {
+            font-size: 1.4rem;
+        }
+    }
+
+    // Vehicle Header Section
+    .vehicle-header-section {
+        text-align: center;
+        margin-bottom: $spacing-xxl;
+
+        .vehicle-title-price {
+            margin-bottom: $spacing-md;
+
+            .vehicle-price {
+                font-family: $font-orbitron;
+                font-size: 3rem;
+                color: $brand-red;
+                font-weight: 700;
+                margin-top: $spacing-xs;
+
+                @include respond-to(max-width, $breakpoint-md) {
+                    font-size: 2.5rem;
+                }
+                @include respond-to(max-width, $breakpoint-sm) {
+                    font-size: 2rem;
+                }
+            }
+        }
+
+        .vehicle-key-stats {
+            display: flex;
+            justify-content: center;
+            gap: $spacing-lg;
+            margin-bottom: $spacing-xl;
+            flex-wrap: wrap;
+
+            span {
+                font-size: 1.1rem;
+                color: $grey-dark;
+                display: flex;
+                align-items: center;
+
+                i {
+                    margin-right: $spacing-xs;
+                    color: $brand-red;
+                }
+            }
+        }
+
+        .vehicle-ctas {
+            display: flex;
+            justify-content: center;
+            gap: $spacing-md;
+            flex-wrap: wrap;
+
+            .button {
+                min-width: 180px;
+                @include respond-to(max-width, $breakpoint-sm) {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    // Image Gallery Section
+    .vehicle-gallery-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: $spacing-xxl;
+        background-color: $grey-light; // Light background for the gallery area
+        padding: $spacing-lg 0;
+        border-radius: $border-radius-md;
+        box-shadow: $shadow-md;
+
+        .main-vehicle-image {
+            width: 90%;
+            max-width: 900px;
+            height: auto;
+            border-radius: $border-radius-sm;
+            margin-bottom: $spacing-md;
+            box-shadow: $shadow-sm;
+
+            @include respond-to(max-width, $breakpoint-md) {
+                width: 95%;
+            }
+        }
+
+        .thumbnail-gallery {
+            display: flex;
+            gap: $spacing-sm;
+            justify-content: center;
+            flex-wrap: wrap;
+
+            .thumbnail {
+                width: 100px;
+                height: 60px;
+                object-fit: cover;
+                border-radius: $border-radius-sm;
+                cursor: pointer;
+                border: 2px solid transparent;
+                transition: border-color 0.3s ease;
+
+                &:hover, &.active {
+                    border-color: $brand-red;
+                }
+
+                @include respond-to(max-width, $breakpoint-sm) {
+                    width: 80px;
+                    height: 50px;
+                }
+            }
+        }
+    }
+
+    // Vehicle Details & Specifications
+    .vehicle-specifications-section {
+        background-color: $white; // Ensure this section stands out
+        padding: $spacing-lg;
+        border-radius: $border-radius-md;
+        box-shadow: $shadow-sm;
+        text-align: center;
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: $spacing-md;
+            margin-top: $spacing-lg;
+            margin-bottom: $spacing-xxl;
+            text-align: left;
+
+            .spec-item {
+                background-color: $grey-light;
+                padding: $spacing-md;
+                border-radius: $border-radius-sm;
+                font-size: 1.1rem;
+                display: flex;
+                flex-direction: column;
+
+                strong {
+                    color: $black;
+                    margin-bottom: $spacing-xxs;
+                }
+                span {
+                    color: $grey-dark;
+                }
+            }
+        }
+
+        .features-list {
+            list-style: none; // Remove default bullets
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: $spacing-xs $spacing-lg; // Row and column gap
+            text-align: left;
+
+            li {
+                background-color: $grey-light;
+                padding: $spacing-sm $spacing-md;
+                border-radius: $border-radius-sm;
+                color: $grey-dark;
+                font-size: 1rem;
+                display: flex;
+                align-items: center;
+                gap: $spacing-xs;
+
+                &::before {
+                    content: "\2713"; // Checkmark icon
+                    color: $brand-red;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+
+    // Vehicle Description
+    .vehicle-description-section {
+        text-align: center;
+        padding: $spacing-lg;
+        border-radius: $border-radius-md;
+        background-color: $grey-light;
+        box-shadow: $shadow-sm;
+
+        p {
+            max-width: 800px;
+            margin: $spacing-md auto;
+            line-height: 1.8;
+            color: $grey-dark;
+            font-size: 1.1rem;
+        }
+    }
+
+    // Vehicle History Section
+    .vehicle-history-section {
+        text-align: center;
+        background-color: $white;
+        padding: $spacing-lg;
+        border-radius: $border-radius-md;
+        box-shadow: $shadow-sm;
+
+        p {
+            margin-bottom: $spacing-md;
+            color: $grey-dark;
+            font-size: 1.1rem;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: $spacing-xl;
+
+            li {
+                background-color: $grey-light;
+                padding: $spacing-sm $spacing-md;
+                border-radius: $border-radius-sm;
+                margin-bottom: $spacing-xs;
+                color: $grey-dark;
+                font-size: 1rem;
+                text-align: left;
+                max-width: 600px;
+                margin-left: auto;
+                margin-right: auto;
+
+                a {
+                    color: $brand-red;
+                    text-decoration: none;
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+
+    // Financing & Contact Section
+    .vehicle-financing-contact-section {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: $spacing-xxl; // Space between the two sub-sections
+
+        @include respond-to(min-width, $breakpoint-md) {
+            grid-template-columns: repeat(2, 1fr); // Two columns on larger screens
+            gap: $spacing-xl;
+        }
+
+        .financing-options, .contact-dealer {
+            background-color: $grey-light;
+            padding: $spacing-lg;
+            border-radius: $border-radius-md;
+            box-shadow: $shadow-sm;
+            text-align: center;
+
+            p {
+                margin-bottom: $spacing-md;
+                color: $grey-dark;
+                font-size: 1.1rem;
+            }
+
+            .button {
+                margin: $spacing-xs;
+                min-width: 180px;
+                @include respond-to(max-width, $breakpoint-sm) {
+                    width: 100%;
+                }
+            }
+        }
+
+        .contact-dealer {
+            a {
+                color: $brand-red;
+                font-weight: bold;
+                text-decoration: none;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    // Similar Vehicles Section (Placeholder)
+    .similar-vehicles-section {
+        text-align: center;
+        background-color: $white;
+        padding: $spacing-lg;
+        border-radius: $border-radius-md;
+        box-shadow: $shadow-sm;
+
+        .similar-vehicles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: $spacing-md;
+            margin-top: $spacing-lg;
+            justify-items: center;
+
+            .placeholder-vehicle-card {
+                background-color: $grey-light;
+                border-radius: $border-radius-md;
+                padding: $spacing-md;
+                box-shadow: $shadow-sm;
+                text-align: center;
+
+                img {
+                    width: 100%;
+                    height: auto;
+                    border-radius: $border-radius-sm;
+                    margin-bottom: $spacing-sm;
+                }
+
+                p {
+                    font-weight: 600;
+                    color: $black;
+                }
+            }
+        }
+    }
+}

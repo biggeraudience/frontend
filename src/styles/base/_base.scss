@@ -1,0 +1,65 @@
+// src/styles/base/_base.scss
+@use "../abstracts/variables" as *;
+@use "../abstracts/fonts" as *;
+@use "../abstracts/mixins" as *;
+
+// RESET
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px; // Base font size
+  height: 100%;
+}
+
+body {
+  font-family: $font-urbanist;
+  background: $white;
+  color: $grey-dark;
+  line-height: 1.5;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-content {
+  flex-grow: 1;
+  padding-top: 60px;    // match navbar height
+  padding-bottom: 60px; // match footer height
+  min-height: calc(100vh - 120px); // Ensure content takes full height
+  margin: 0 auto;
+  max-width: 1400px; // A reasonable max-width for very large screens
+
+  // Adjust padding for various screen sizes
+  @include respond-to(max-width, $breakpoint-xl) { // Changed $breakpoint-xl to $breakpoint-xl
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
+  }
+
+  @include respond-to(max-width, $breakpoint-lg) { // Changed $breakpoint-lg to $breakpoint-lg
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  @include respond-to(max-width, $breakpoint-md) { // Changed $breakpoint-md to $breakpoint-md
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  @include respond-to(max-width, $breakpoint-sm) { // Changed $breakpoint-sm to $breakpoint-sm
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  // Smallest screens (280px and above)
+  @include respond-to(max-width, $breakpoint-xs) { // Changed $breakpoint-xs to $breakpoint-xs
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}

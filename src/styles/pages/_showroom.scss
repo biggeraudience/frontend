@@ -1,0 +1,371 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "../abstracts/fonts" as *;
+
+.showroom-page {
+  // Set the showroom background to dark
+  background-color: $dark-background;
+  color: $white;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+
+  width: 100vw; // Set width to 100% of the viewport width
+  // Remove any left/right margins or max-width that would prevent it from touching edges
+  margin-left: auto; // Ensure it's not shifted by default margins from parent
+  margin-right: auto; // Ensure it's not shifted by default margins from parent
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 0 1rem; // Add horizontal padding to prevent text from touching edges on small screens
+
+    h1 {
+      font-size: 3.5rem;
+      color: $white;
+      margin-bottom: 0.75rem;
+
+      @include respond-to(max-width, $breakpoint-md) {
+        font-size: 2.8rem;
+      }
+      @include respond-to(max-width, $breakpoint-sm) {
+        font-size: 2.2rem;
+      }
+    }
+
+    p {
+      font-size: 1.25rem;
+      color: $grey-light;
+      max-width: 800px;
+      margin: 0 auto;
+
+      @include respond-to(max-width, $breakpoint-md) {
+        font-size: 1.1rem;
+      }
+      @include respond-to(max-width, $breakpoint-sm) {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .mobile-filter-button-wrapper {
+    display: none;
+    text-align: center;
+    padding: 0 1rem; // Add padding to align with other content
+    width: 100%; // Ensure it takes full width for centering
+    box-sizing: border-box; // Include padding in width
+
+    @include respond-to(max-width, $breakpoint-md) {
+      display: block;
+      margin-bottom: 1.5rem;
+      display: flex; // Use flexbox for centering
+      justify-content: center; // Center horizontally
+      align-items: center; // Center vertically (though not strictly necessary for a single button)
+    }
+  }
+
+  .filter-bar-container {
+    background-color: $white;
+    padding: 1.5rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba($black, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 2rem; // Add horizontal margin to maintain spacing when full width
+
+    @include respond-to(max-width, $breakpoint-md) {
+      display: none;
+      margin: 0 1rem; // Adjust margin for smaller screens if needed
+    }
+    @include respond-to(max-width, $breakpoint-sm) {
+      margin: 0 0.5rem; // Even smaller margin for very small screens
+    }
+
+
+    .top-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      width: 100%;
+
+      @include respond-to(max-width, $breakpoint-sm) {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+      }
+
+      .filter-group {
+        flex: 1;
+        min-width: 180px;
+        max-width: 250px;
+
+        @include respond-to(max-width, $breakpoint-sm) {
+          max-width: 100%;
+        }
+
+        label {
+          display: block;
+          font-family: $font-urbanist;
+          font-size: 0.9rem;
+          color: $grey-dark;
+          margin-bottom: 0.5rem;
+          font-weight: 600;
+        }
+
+        select,
+        input[type="range"] {
+          width: 100%;
+          padding: 0.75rem 1rem;
+          border: 1px solid $grey;
+          border-radius: 4px;
+          background-color: $white;
+          font-family: $font-urbanist;
+          font-size: 1rem;
+          color: $black;
+          appearance: none;
+          cursor: pointer;
+          transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+          &:focus {
+            outline: none;
+            border-color: $brand-red;
+            box-shadow: 0 0 0 2px rgba($brand-red, 0.2);
+          }
+        }
+      }
+    }
+
+    .more-filters-toggle {
+      background: none;
+      border: none;
+      color: $brand-red;
+      font-family: $font-urbanist;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 1.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background-color 0.2s ease-in-out;
+
+      &:hover {
+        background-color: rgba($brand-red, 0.05);
+      }
+    }
+
+    .advanced-filters {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px dashed $grey-light;
+      overflow: hidden;
+      transition: max-height 0.5s ease, opacity 0.5s ease, margin-top 0.5s ease, padding-top 0.5s ease;
+
+      &.hidden {
+        max-height: 0;
+        opacity: 0;
+        pointer-events: none;
+        margin-top: 0;
+        padding-top: 0;
+      }
+      &.visible {
+        max-height: 500px;
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      @include respond-to(max-width, $breakpoint-sm) {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23555'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      background-size: 16px;
+      padding-right: 2.5rem;
+    }
+  }
+
+  .featured-auction-section {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba($black, 0.1);
+    display: flex;
+    flex-direction: row;
+    margin: 0 2rem; // Add horizontal margin to maintain spacing when full width
+
+    @include respond-to(max-width, $breakpoint-lg) {
+      flex-direction: column;
+    }
+    @include respond-to(max-width, $breakpoint-md) {
+      margin: 0 1rem; // Adjust margin for smaller screens if needed
+    }
+    @include respond-to(max-width, $breakpoint-sm) {
+      margin: 0 0.5rem; // Even smaller margin for very small screens
+    }
+
+
+    .featured-carousel-item {
+      /* ... unchanged ... */
+    }
+  }
+
+  .showroom-vehicle-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+    justify-content: center;
+    align-items: stretch;
+    background-color: $black; // Added this line to make the grid background black
+    padding: 2.5rem; // Added padding to give some space around the cards within the black background
+    // This section now has its own padding, so no additional margins are needed here from the parent.
+
+    @include respond-to(min-width, $breakpoint-lg) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @include respond-to(min-width, $breakpoint-xl) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    @include respond-to(max-width, $breakpoint-md) {
+      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      padding: 1.5rem; // Adjust padding for smaller screens
+    }
+    @include respond-to(max-width, $breakpoint-sm) {
+      gap: 1.5rem;
+      grid-template-columns: 1fr;
+      padding: 1rem; // Adjust padding for very small screens
+    }
+
+    // Styles for VehicleCard (assuming it's a direct child of this grid)
+    // You might want to define this within the VehicleCard's own SCSS file
+    // for better component encapsulation.
+    > * { // This targets all direct children, assuming they are your VehicleCard components
+      border-radius: 12px; // Apply generous rounding to the cards
+      overflow: hidden; // Ensure content respects the rounded corners
+    }
+  }
+  // Load More Button
+  .load-more-container {
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    padding: 0 1rem; // Add padding to align with other content
+  }
+}
+
+// Mobile Filter Modal/Sheet (Global Overlay)
+.mobile-filter-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($black, 0.7);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; // Align to top
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  overflow-y: auto; // Allow overlay to scroll if content exceeds height
+
+  // Hide scrollbar for Webkit browsers (Chrome, Safari, Edge)
+  &::-webkit-scrollbar {
+    display: none; // Hide the scrollbar track
+  }
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .mobile-filter-content {
+    background-color: $white;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 8px;
+    padding: 2rem;
+    position: relative;
+    transform: translateY(-50px);
+    opacity: 0;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    max-height: 80vh; // Make it shorter
+    overflow-y: auto; // Allow content inside to scroll
+
+    // Hide scrollbar for Webkit browsers (Chrome, Safari, Edge)
+    &::-webkit-scrollbar {
+      display: none; // Hide the scrollbar track
+    }
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+
+    &.open {
+      transform: translateY(20px); // Slightly adjust Y position for better initial display
+      opacity: 1;
+    }
+
+    .close-button {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: $grey-dark;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    .filter-group {
+      margin-bottom: 1.5rem;
+      label {
+        font-weight: bold;
+        color: $black;
+      }
+      select,
+      input[type="range"] {
+        width: 100%;
+        margin-top: 0.5rem;
+      }
+    }
+
+    .filter-actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+  }
+}
+
+// Global responsive helper classes
+.only-on-mobile {
+  display: none !important;
+}
+
+.only-on-desktop {
+  display: flex !important;
+}
+
+@include respond-to(max-width, $breakpoint-md) {
+  .only-on-mobile {
+    display: inline-flex !important; // Changed to inline-flex to center button correctly
+  }
+  .only-on-desktop {
+    display: none !important;
+  }
+}

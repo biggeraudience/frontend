@@ -1,0 +1,35 @@
+// Migrated to @use syntax for future compatibility
+
+@use "abstracts/variables" as *;
+@use "abstracts/mixins" as *;
+@use "abstracts/fonts" as *;
+
+// Base styles
+@use "base/base";
+@use "base/typography";
+
+// Component styles
+@use "components/navbar";
+@use "components/sidebar";
+@use "components/footer";
+@use "components/button";
+@use "components/vehicle-card"; // Existing, but ensure it's here
+
+// NEW: Section styles for Home page
+@use "sections/hero-section";
+@use "sections/featured-vehicles";
+@use "sections/why-choose-us";
+@use "sections/about-us-snippet";
+@use "sections/call-to-action-section";
+
+
+// Page styles
+@use "pages/splash";
+@use "pages/start";
+@use "pages/home"; // This will orchestrate the new section styles
+@use "pages/showroom";
+@use "pages/vehicle-detail";
+
+
+// Utility styles
+@use "utils/helpers";

@@ -1,0 +1,13 @@
+// src/styles/abstracts/_fonts.scss
+
+@font-face {
+  font-family: 'Digital-7';
+  src: url('../assets/fonts/digital-7.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+// FONT FAMILIES (These should ONLY be here)
+$font-orbitron: 'Orbitron', sans-serif !default;
+$font-urbanist: 'Urbanist', sans-serif !default;
+$font-digital7: 'Digital-7', monospace !default;

@@ -1,0 +1,47 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "../abstracts/fonts" as *; 
+
+.button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem; // Default padding
+    font-family: $font-urbanist;
+    font-weight: 600;
+    text-transform: uppercase;
+    border: none;
+    border-radius: $border-radius-md; // Use variable for consistency
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+
+    &.primary-button {
+        background-color: $brand-red; // Use brand red
+        color: $white;
+        box-shadow: 0 4px 10px rgba($brand-red, 0.3);
+
+        &:hover {
+            background-color: darken($brand-red, 5%);
+            transform: translateY(-2px); // Subtle lift
+            box-shadow: 0 6px 15px rgba($brand-red, 0.4);
+        }
+    }
+
+    &.secondary-button {
+        background-color: $white;
+        color: $black;
+        border: 1px solid $grey-medium; // Use a grey variable
+        box-shadow: 0 4px 10px rgba($black, 0.1);
+
+        &:hover {
+            background-color: $grey-light;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba($black, 0.15);
+        }
+    }
+
+    &.small-button {
+        padding: 0.6rem 1.2rem; // Slightly adjusted for the VIEW button
+        font-size: 0.95rem; // Slightly larger for "VIEW" button
+        font-weight: bold; // Make button text bold
+    }
+}

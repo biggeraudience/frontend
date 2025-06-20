@@ -1,0 +1,25 @@
+// src/styles/pages/_home.scss
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.home-page {
+  // Global padding/margin for sections within the home page, if needed
+  section {
+    padding: 4rem 0; // Default padding for sections
+    @include respond-to(max-width, $breakpoint-md) { // Changed $breakpoint-md to $breakpoint-md
+      padding: 3rem 0;
+    }
+  }
+
+  // Adjust specific section spacing if necessary
+  .hero-section {
+    padding: 0; // Hero section should typically take full height/width
+  }
+
+  .call-to-action-section {
+    padding: 5rem 0; // More prominent padding for the final CTA
+    @include respond-to(max-width, $breakpoint-md) { // Changed $breakpoint-md to $breakpoint-md
+      padding: 4rem 0;
+    }
+  }
+}

@@ -1,0 +1,29 @@
+// src/styles/pages/_start.scss
+// Convert from @import to @use with correct relative paths
+@use "../abstracts/variables" as *; // Import variables (colors, breakpoints)
+@use "../abstracts/mixins" as *;    // Import mixins (like center-flex, respond-to)
+@use "../abstracts/fonts" as *;     // Import font variables
+
+.start-screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: $black; // Now $black is properly defined
+  @include center-flex; // Now @include center-flex is properly defined
+  z-index: 950;
+  transition: opacity 0.5s ease-out;
+}
+
+.start-button {
+  padding: 0.75rem 1.5rem;
+  border: 4px solid $brand-red; // Now $brand-red is properly defined
+  cursor: pointer;
+}
+
+.start-button-text {
+  font-family: $font-orbitron; // Now $font-orbitron is properly defined
+  color: $brand-red;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}

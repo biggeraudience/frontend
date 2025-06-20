@@ -1,0 +1,61 @@
+@use "variables" as *;
+
+// FLEX CENTER
+@mixin center-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// RESPONSIVE MEDIA - Enhanced for min-width, max-width, and ranges
+// Usage:
+// @include respond-to(min-width, $breakpoint-sm) { ... }
+// @include respond-to(max-width, $breakpoint-md) { ... }
+// @include respond-to(between, $breakpoint-sm, $breakpoint-lg) { ... }
+// @include respond-to(min-width, 280px) { ... } // Custom breakpoint
+@mixin respond-to($type, $breakpoint1, $breakpoint2: null) {
+  @if $type == min-width {
+    @media (min-width: $breakpoint1) {
+      @content;
+    }
+  } @else if $type == max-width {
+    @media (max-width: $breakpoint1) {
+      @content;
+    }
+  } @else if $type == only-screen {
+    // For specific breakpoint range, e.g., only for tablets
+    @media (min-width: $breakpoint1) and (max-width: $breakpoint2) {
+      @content;
+    }
+  } @else if $type == up {
+    // Shorthand for min-width
+    @media (min-width: $breakpoint1) {
+      @content;
+    }
+  } @else if $type == down {
+    // Shorthand for max-width
+    @media (max-width: $breakpoint1) {
+      @content;
+    }
+  } @else if $type == between {
+    // Custom range
+    @media (min-width: $breakpoint1) and (max-width: $breakpoint2) {
+      @content;
+    }
+  } @else {
+    @warn "Unknown type #{$type} in respond-to mixin. Please use 'min-width', 'max-width', 'only-screen', 'up', 'down', or 'between'.";
+  }
+}
+
+
+// SCREEN-READER ONLY
+@mixin sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}

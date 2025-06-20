@@ -1,0 +1,241 @@
+// src/styles/components/vehicle-card.scss
+
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "../abstracts/fonts" as *;
+
+.vehicle-card-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; // Push bottom content to the end
+    height: 100%; // Fill the stretched height from the grid
+    align-items: center; // Center items horizontally within the card
+    text-align: center; // Center text like title
+    position: relative;
+    padding: $spacing-md; // Adjust padding around the content
+    border-radius: $border-radius-md;
+    background-color: transparent; // As per the image, cards have no visible background
+    box-shadow: none; // No box shadow for the card itself
+    color: $white; // Default text color for the card
+
+    // Remove any hover effects for the entire card
+    transition: none; 
+    &:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    // Car Name/Model at the top
+    .vehicle-card-title {
+        font-size: 1.8rem; // Larger font size for the title
+        margin-bottom: $spacing-md; // Space below title, before image
+        color: #f30000; // Red color for the title
+        font-family: $font-orbitron; // Futuristic/digital font
+        line-height: 1.2;
+        text-transform: uppercase; // Ensure uppercase
+        font-weight: bold; // Ensure bold
+        text-align: center; // Ensure title is centered
+        width: 100%; // Ensure it takes full width for centering
+    }
+}
+
+.vehicle-card-image-wrapper {
+    width: 100%;
+    max-width: 300px; // Limit image width for consistency if cards vary
+    height: 200px; // Fixed height for images
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-bottom: $spacing-lg; // Space below image before content area
+}
+
+.vehicle-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; // Ensure entire car is visible without cropping
+    object-position: center;
+    transition: none; // No hover effect on image
+}
+
+.vehicle-card-content {
+    padding: 0; // Remove padding as all elements handle their own spacing
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; // Align content sections to the left (except badges which are centered)
+    width: 100%; // Ensure content takes full width
+}
+
+// Badges (Brand Logo, Tuner, Transmission, Engine)
+.vehicle-card-badges {
+    display: flex;
+    justify-content: center; // Center the badges horizontally
+    gap: $spacing-lg; // Space between badges
+    margin-bottom: $spacing-xl; // Space below badges before stats
+    width: 100%; // Ensure badges container takes full width to allow centering
+
+    .badge-item {
+        display: flex;
+        flex-direction: column; // Stack icon and text vertically
+        align-items: center; // Center icon/text within each badge item
+        
+        svg, img { // For brand logos, tuner logos etc.
+            width: 35px; // Adjust size as needed
+            height: 35px;
+            object-fit: contain;
+            // Apply filter to make most SVGs/PNGs white
+            filter: brightness(0) invert(1);
+        }
+
+        // Specific styling for AMG logo (if it's an image that should retain color)
+        &.tuner img { // Target img inside tuner badge
+            filter: none; // Keep its original color (e.g., AMG's red/white)
+        }
+        // Specific styling for brand logos if they should NOT be white-filtered
+        // &.brand-logo img[alt="AMG"] { filter: none; } // Example if AMG was a brand
+        // &.brand-logo img[alt="Tesla"] { filter: none; } // Tesla logo in image is white, so invert is fine
+
+        &.transmission, &.engine { // For text-based badges like 'auto', 'V8'
+            color: $white; // Text color
+            font-family: $font-urbanist; // Regular sans-serif font
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            
+            svg { // Icons within transmission/engine badges
+                width: 25px;
+                height: 25px;
+                margin-bottom: $spacing-xxs; // Small space between icon and text
+                filter: brightness(0) invert(1); // Make these icons white
+            }
+        }
+
+        .v-engine-text { // For V6, V8, V12 etc.
+            font-family: $font-orbitron; // Use Orbitron for V engine text
+            color: $brand-red; // Red for V engine as per image
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-transform: uppercase; // Ensure uppercase
+        }
+
+        .electric-icon { // Style for the electric plug icon
+            filter: brightness(0) invert(1); // Make it white
+        }
+    }
+}
+
+// Car Statistics (Price, Mileage, Year)
+.vehicle-stats {
+    display: flex;
+    flex-direction: column; // Stack them vertically by default
+    align-items: flex-start; // Align text to the left within the card's content area
+    width: 100%; // Ensure items take full width for consistent left alignment
+    margin-bottom: $spacing-lg; // Space before the button
+
+    .stat-item {
+        display: flex;
+        align-items: center;
+        gap: $spacing-xs; // Space between icon and text
+        margin-bottom: $spacing-sm; // Space between each stat item
+        width: 100%; // Ensure items take full width
+
+        &:last-child {
+            margin-bottom: 0; // No margin for the last stat item
+        }
+
+        svg { // For price, mileage, year icons
+            width: 20px;
+            height: 20px;
+            color: $white; // White icons
+        }
+
+        span {
+            font-family: $font-urbanist;
+            font-size: 1rem;
+            color: $white; // White text for stats
+            font-weight: bold; // Make stats bold
+        }
+
+        // Apply digital-7 font to animated counters
+        .digital-7-font {
+            font-family: $font-digital7;
+            font-size: 1.2rem; // Adjust size for mileage/year for digital-7
+            color: $white; // White for mileage/year numbers
+            letter-spacing: 1px;
+            text-shadow: 0 0 3px rgba($white, 0.5); // Subtle glow
+        }
+
+        &.price-item {
+            .vehicle-card-price {
+                font-family: $font-orbitron; // Orbitron for price
+                font-size: 1.8rem; // Larger font size for price
+                font-weight: bold;
+                color: #f30000; // Red for price
+                letter-spacing: 1px; // A bit of letter spacing for digital look
+                text-shadow: none; // Remove glow for price as per new instruction
+                transition: none; // Remove any glow transition on hover
+
+                .digital-7-font { // Ensure Orbitron applies to the animated part of the price
+                    font-family: $font-orbitron; // Price animation should also be Orbitron
+                    color: #f30000;
+                    font-size: 1.8rem;
+                    text-shadow: none;
+                }
+            }
+        }
+    }
+}
+
+// View Button
+.showroom-button {
+    align-self: flex-end; // Align the button to the bottom right of the card by default
+    margin-top: $spacing-sm; // Small space above button if needed
+    // The general .button and .primary-button styles will apply from _button.scss
+    font-size: 1rem; // Adjust button font size if needed
+    padding: 0.6rem 1.2rem; // Adjust button padding if needed
+    text-transform: uppercase; // Ensure button text is uppercase
+    background-color: #f30000; // Specific background color
+    color: $black; // Specific text color
+    font-family: $font-orbitron; // Orbitron font for the button text
+    font-weight: bold; // Ensure bold
+    border-radius: $border-radius-sm; // Slightly smaller border-radius for buttons
+    letter-spacing: 1px; // Add some letter spacing
+
+    &:hover {
+        background-color: darken(#f30000, 10%); // Darken on hover
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba($black, 0.4); // Darker shadow on hover
+    }
+}
+
+// ==============
+// Responsive row for stats + button (for desktop)
+// ==============
+
+@include respond-to(min-width, $breakpoint-md) {
+    .vehicle-card-content {
+        display: flex;
+        flex-direction: row; // Make content row on desktop
+        justify-content: space-between; // Space between stats and button
+        align-items: center; // Vertically align stats and button
+        height: auto; // Auto height since it's a row now, not expanding vertically
+    }
+
+    .vehicle-stats {
+        display: flex !important; // Ensure stats are a flex row
+        align-items: center; // Align items within stats row
+        gap: $spacing-md; // Gap between stat items
+        flex-wrap: wrap; // Allow stats to wrap if space is limited
+        margin-bottom: 0; // Remove bottom margin when in row layout
+    }
+
+    .stat-item { // Apply to all stat items in desktop row
+        margin-bottom: 0; // Remove individual bottom margins for stat items
+    }
+
+    .showroom-button {
+        align-self: center; // Vertically center the button with the stats
+        margin-top: 0; // Remove any top margin
+    }
+}
