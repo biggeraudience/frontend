@@ -1,0 +1,363 @@
+// src/styles/pages/_bidding-page.scss
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "../abstracts/fonts" as *;
+
+.bidding-page {
+    display: flex;
+    flex-direction: column;
+    padding: $spacing-xl 0; // Top/bottom padding
+    min-height: calc(100vh - var(--navbar-height, 60px) - 60px); // Adjust based on dynamic navbar height
+
+    @include respond-to(down, $breakpoint-lg) {
+        padding: $spacing-lg 0;
+    }
+
+    .bidding-hero {
+        position: relative;
+        width: 100%;
+        height: 60vh; // Make it tall and impactful
+        overflow: hidden;
+        margin-bottom: $spacing-xxl; // Space below hero
+
+        @include respond-to(down, $breakpoint-lg) {
+            height: 45vh;
+            margin-bottom: $spacing-xl;
+        }
+        @include respond-to(down, $breakpoint-md) {
+            height: 35vh;
+        }
+        @include respond-to(down, $breakpoint-sm) {
+            height: 30vh;
+        }
+
+        &-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; // Ensures the image covers the area
+            object-position: center;
+            filter: brightness(0.7); // Darken image slightly for text readability
+            transition: filter 0.5s ease-out; // Smooth transition
+        }
+
+        &-overlay {
+            @include center-flex; // Mixin for centering
+            flex-direction: column;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba($dark-background, 0.7) 0%, rgba($dark-background, 0.2) 50%, rgba($dark-background, 0) 100%);
+            color: $white;
+            text-align: center;
+            justify-content: flex-end; // Push content to bottom
+            padding-bottom: $spacing-xl;
+
+            h1 {
+                font-size: 4.5rem;
+                color: $white;
+                text-shadow: 0 4px 10px rgba($black, 0.5);
+                margin-bottom: $spacing-sm;
+
+                @include respond-to(down, $breakpoint-xl) { font-size: 3.8rem; }
+                @include respond-to(down, $breakpoint-lg) { font-size: 3rem; }
+                @include respond-to(down, $breakpoint-md) { font-size: 2.5rem; }
+                @include respond-to(down, $breakpoint-sm) { font-size: 2rem; }
+            }
+
+            p {
+                font-size: 1.5rem;
+                color: $grey-light;
+                margin-bottom: $spacing-xxl; // Space between car info and bid info
+
+                @include respond-to(down, $breakpoint-lg) { font-size: 1.2rem; margin-bottom: $spacing-xl;}
+                @include respond-to(down, $breakpoint-md) { font-size: 1rem; margin-bottom: $spacing-lg;}
+            }
+
+            .bid-info-live {
+                display: flex;
+                gap: $spacing-xl;
+                background: rgba($black, 0.5);
+                padding: $spacing-md $spacing-lg;
+                border-radius: $border-radius-md;
+                box-shadow: $shadow-lg;
+                border: 1px solid rgba($brand-red, 0.5); // Subtle red highlight
+
+                @include respond-to(down, $breakpoint-md) {
+                    flex-direction: column;
+                    gap: $spacing-sm;
+                    padding: $spacing-sm $spacing-md;
+                    width: 90%;
+                }
+
+                .info-block {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    .label {
+                        font-size: 0.9rem;
+                        color: $grey-light;
+                        text-transform: uppercase;
+                        margin-bottom: $spacing-xxs;
+                    }
+                    .value {
+                        font-size: 2.5rem;
+                        color: $brand-red; // Highlight with brand color
+                        letter-spacing: 2px;
+
+                        @include respond-to(down, $breakpoint-md) { font-size: 1.8rem; }
+                    }
+                }
+            }
+        }
+    }
+
+    .bidding-content {
+        display: flex;
+        gap: $spacing-xxl;
+        max-width: 1200px; // Constrain content width
+        margin: 0 auto; // Center the content
+        padding: 0 $spacing-xl; // Inner padding for sides
+
+        @include respond-to(down, $breakpoint-lg) {
+            flex-direction: column;
+            gap: $spacing-xl;
+            padding: 0 $spacing-lg;
+        }
+        @include respond-to(down, $breakpoint-md) {
+            padding: 0 $spacing-md;
+        }
+    }
+
+    .bidding-main {
+        flex: 2; // Takes more space
+        padding-right: $spacing-lg; // Space from sidebar
+        border-right: 1px solid $grey-light; // Subtle separator
+
+        @include respond-to(down, $breakpoint-lg) {
+            padding-right: 0;
+            border-right: none;
+            border-bottom: 1px solid $grey-light; // Separator for mobile
+            padding-bottom: $spacing-xl;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            color: $black;
+            margin-bottom: $spacing-lg;
+            border-bottom: 2px solid $brand-red;
+            padding-bottom: $spacing-xs;
+            display: inline-block; // Only underline the text
+
+            @include respond-to(down, $breakpoint-md) { font-size: 1.8rem; }
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            color: $black;
+            margin-top: $spacing-xl;
+            margin-bottom: $spacing-md;
+
+            @include respond-to(down, $breakpoint-md) { font-size: 1.5rem; }
+        }
+
+        .vehicle-details-section {
+            margin-bottom: $spacing-xxl;
+
+            .details-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: $spacing-md;
+                margin-bottom: $spacing-xl;
+                font-size: 1.1rem;
+
+                div {
+                    background: $grey-light;
+                    padding: $spacing-md;
+                    border-radius: $border-radius-sm;
+                    strong {
+                        color: $brand-red;
+                    }
+                }
+            }
+
+            .features-list {
+                ul {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                    gap: $spacing-sm;
+
+                    li {
+                        background: $white;
+                        border: 1px solid $grey;
+                        padding: $spacing-sm;
+                        border-radius: $border-radius-sm;
+                        display: flex;
+                        align-items: center;
+                        gap: $spacing-xs;
+
+                        &::before {
+                            content: '•'; // Simple bullet
+                            color: $brand-red;
+                            font-size: 1.5rem;
+                            line-height: 1;
+                        }
+                    }
+                }
+            }
+
+            .media-gallery {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: $spacing-md;
+                margin-top: $spacing-xxl;
+
+                .gallery-thumbnail {
+                    width: 100%;
+                    height: 200px;
+                    object-fit: cover;
+                    border-radius: $border-radius-md;
+                    box-shadow: $shadow-md;
+                    transition: transform 0.3s ease;
+
+                    &:hover {
+                        transform: scale(1.03);
+                    }
+                }
+            }
+        }
+    }
+
+    .bidding-sidebar {
+        flex: 1; // Takes less space
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-xxl; // Space between sections
+
+        .place-bid-section, .bid-history-section {
+            background: $white;
+            border: 1px solid $grey-light;
+            border-radius: $border-radius-lg;
+            padding: $spacing-xl;
+            box-shadow: $shadow-md;
+
+            h2 {
+                font-size: 1.8rem;
+                color: $black;
+                margin-bottom: $spacing-lg;
+                text-align: center;
+                border-bottom: 2px solid $brand-red;
+                padding-bottom: $spacing-xs;
+                display: inline-block;
+                width: 100%; // To center the border effect
+
+                @include respond-to(down, $breakpoint-md) { font-size: 1.5rem; }
+            }
+        }
+
+        .current-bid-display {
+            text-align: center;
+            margin-bottom: $spacing-lg;
+            .label {
+                font-size: 1rem;
+                color: $grey-medium;
+                display: block;
+                margin-bottom: $spacing-xxs;
+            }
+            .value {
+                font-size: 3rem;
+                color: $brand-red;
+                letter-spacing: 2px;
+            }
+        }
+
+        .bid-input-group {
+            display: flex;
+            gap: $spacing-sm;
+            margin-bottom: $spacing-md;
+
+            .bid-input {
+                flex-grow: 1;
+                padding: $spacing-md;
+                border: 1px solid $grey;
+                border-radius: $border-radius-sm;
+                font-size: 1.1rem;
+                outline: none;
+                transition: border-color 0.3s ease;
+
+                &:focus {
+                    border-color: $brand-red;
+                    box-shadow: 0 0 0 3px rgba($brand-red, 0.2);
+                }
+            }
+
+            .button {
+                padding: $spacing-md $spacing-lg;
+                font-size: 1.1rem;
+            }
+        }
+
+        .quick-bid-options {
+            display: flex;
+            justify-content: center;
+            gap: $spacing-xs;
+            flex-wrap: wrap;
+
+            .button {
+                padding: $spacing-sm $spacing-md;
+                font-size: 0.9rem;
+            }
+        }
+
+        .bid-history-section {
+            .bid-history-list {
+                max-height: 300px; // Limit height for scrollability
+                overflow-y: auto;
+                border: 1px solid $grey-light;
+                border-radius: $border-radius-sm;
+                padding: $spacing-sm;
+                background-color: $grey-light;
+
+                .no-bids {
+                    text-align: center;
+                    color: $grey-medium;
+                    padding: $spacing-lg;
+                }
+
+                .bid-item {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: $spacing-xs $spacing-sm;
+                    border-bottom: 1px solid $grey;
+                    font-size: 0.95rem;
+
+                    &:last-child {
+                        border-bottom: none;
+                    }
+
+                    .bidder {
+                        font-weight: 600;
+                        color: $dark-background;
+                    }
+
+                    .bid-amount {
+                        font-size: 1.1rem;
+                        color: $brand-red;
+                        font-family: $font-digital7;
+                    }
+
+                    .bid-time {
+                        font-size: 0.8rem;
+                        color: $grey-medium;
+                    }
+                }
+            }
+        }
+    }
+}

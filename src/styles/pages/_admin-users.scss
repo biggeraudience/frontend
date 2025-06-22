@@ -1,0 +1,16 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "../abstracts/fonts" as *;
+
+.admin-page {
+    // Inherits general admin page styles from _admin-vehicles.scss or _admin-layout.scss
+    // Add any styles specific to the Users page here
+    &.admin-users-page {
+        // For example:
+        // .user-list-section {
+        //     background-color: $white;
+        //     padding: $spacing-lg;
+        //     border-radius: $border-radius-md;
+        // }
+    }
+}

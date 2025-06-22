@@ -1,0 +1,88 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.engine-sound-player {
+    background-color: $white;
+    padding: $spacing-lg;
+    border-radius: $border-radius-md;
+    box-shadow: $shadow-md;
+    margin-top: $spacing-xl;
+    text-align: center;
+    border: 1px solid $grey-light; // Using $grey-light for border
+
+    h3 {
+        font-size: 1.8rem; // Using hardcoded font size as it's not in variables
+        color: $black;
+        margin-bottom: $spacing-lg;
+    }
+
+    .sound-controls {
+        @include center-flex; // Using the mixin for centering
+        margin-bottom: $spacing-xl; // Space below the button
+
+        .sound-button {
+            @include button-reset; // Using the button-reset mixin
+            background-color: $grey-light;
+            color: $grey-dark;
+            border: 1px solid $grey; // Using $grey for button border
+            padding: $spacing-sm $spacing-md;
+            border-radius: $border-radius-sm;
+            cursor: pointer;
+            font-size: 1rem; // Hardcoded font size
+            font-weight: 600; // Hardcoded font weight
+            display: flex;
+            align-items: center;
+            gap: $spacing-xs;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+
+            &:hover:not(:disabled) {
+                background-color: darken($grey-light, 5%);
+                color: $black;
+            }
+
+            &.playing {
+                background-color: $brand-red; // Using $brand-red
+                color: $white;
+                border-color: $brand-red; // Using $brand-red
+
+                &:hover {
+                    background-color: darken($brand-red, 10%);
+                }
+            }
+
+            &:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+            }
+
+            .play-pause-icon {
+                width: 20px; // Hardcoded size
+                height: 20px; // Hardcoded size
+                fill: currentColor;
+            }
+        }
+    }
+
+    .audio-visualizer-container {
+        width: 100%;
+        max-width: 800px; // Hardcoded max-width
+        margin: 0 auto;
+        border: 1px solid $grey; // Using $grey
+        border-radius: $border-radius-sm;
+        overflow: hidden;
+        background-color: $black; // Using $black
+
+        .audio-visualizer {
+            display: block;
+            width: 100%;
+            height: 100px; // Hardcoded height
+            background-color: transparent;
+        }
+    }
+
+    .loading-audio-message, .no-audio-message {
+        margin-top: $spacing-md;
+        color: $grey-dark; // Using $grey-dark
+        font-style: italic;
+    }
+}

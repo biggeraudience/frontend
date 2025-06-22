@@ -1,0 +1,70 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "../abstracts/fonts" as *;
+
+.auth-page {
+    @include center-flex; // Center the auth card on the page
+    min-height: 100vh; // Take full viewport height
+    background-color: $dark-background; // A dark, subtle background for auth pages
+    padding: $spacing-xl; // General padding
+
+    .auth-card {
+        background-color: $white;
+        border-radius: $border-radius-lg;
+        box-shadow: $shadow-lg;
+        padding: $spacing-xxl $spacing-xl;
+        width: 100%;
+        max-width: 450px; // Max width for the card
+        text-align: center;
+        
+        h2 {
+            font-family: $font-orbitron;
+            color: $black;
+            font-size: 2.2rem;
+            margin-bottom: $spacing-xl;
+        }
+
+        form {
+            text-align: left; // Align form elements left
+
+            .form-group {
+                margin-bottom: $spacing-lg; // Spacing between input groups
+            }
+
+            .button { // Target your button component
+                width: 100%; // Full width button
+                margin-top: $spacing-lg;
+                padding: $spacing-md; // Taller button
+                font-size: 1.1rem;
+            }
+        }
+
+        .auth-links {
+            margin-top: $spacing-lg;
+            font-family: $font-urbanist;
+
+            p {
+                margin-bottom: $spacing-xs;
+            }
+
+            a {
+                color: $brand-red;
+                text-decoration: none;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    // Responsive adjustments
+    @include respond-to(max-width, $breakpoint-sm) {
+        padding: $spacing-lg;
+        .auth-card {
+            padding: $spacing-xl $spacing-md;
+            h2 {
+                font-size: 1.8rem;
+            }
+        }
+    }
+}

@@ -1,0 +1,121 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "../abstracts/fonts" as *;
+
+.admin-navbar {
+    background-color: $dark-background;
+    color: $white;
+    padding: $spacing-md $spacing-lg;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed; // Keep navbar at the top
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; // Ensure it's above other content
+    box-shadow: $shadow-md;
+
+    .admin-navbar-left {
+        display: flex;
+        align-items: center;
+
+        .menu-toggle-button {
+            @include button-reset; // Use your button reset mixin
+            color: $white;
+            margin-right: $spacing-md;
+            display: flex; // For icon centering
+            align-items: center;
+            justify-content: center;
+
+            &:hover {
+                color: $brand-red;
+            }
+        }
+
+        .admin-brand-name {
+            font-family: $font-orbitron;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: $brand-red; // Brand color for the admin logo
+        }
+    }
+
+    .admin-navbar-right {
+        display: flex;
+        align-items: center;
+
+        .admin-icon-button {
+            position: relative;
+            margin-right: $spacing-lg;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            color: $grey-light;
+
+            &:hover {
+                color: $white;
+            }
+
+            .notification-badge {
+                position: absolute;
+                top: -8px;
+                right: -8px;
+                background-color: $brand-red;
+                color: $white;
+                border-radius: 50%;
+                padding: 2px 6px;
+                font-size: 0.7rem;
+                font-family: $font-urbanist;
+                font-weight: bold;
+                min-width: 20px; // Ensure badge is round for single digits
+                text-align: center;
+            }
+        }
+
+        .admin-user-menu {
+            display: flex;
+            align-items: center;
+            color: $grey-light;
+            cursor: pointer;
+
+            span {
+                margin-left: $spacing-xs;
+                margin-right: $spacing-sm; // Space before logout button
+                font-family: $font-urbanist;
+            }
+
+            .logout-button {
+                @include button-reset;
+                color: $brand-red;
+                font-weight: bold;
+                padding: $spacing-xxs $spacing-xs;
+                border-radius: $border-radius-sm;
+
+                &:hover {
+                    background-color: rgba($brand-red, 0.1);
+                }
+            }
+        }
+    }
+}
+
+// Responsive adjustments for admin-navbar
+@include respond-to(max-width, $breakpoint-sm) {
+    .admin-navbar {
+        padding: $spacing-md $spacing-md;
+
+        .admin-navbar-left {
+            .admin-brand-name {
+                font-size: 1.2rem;
+            }
+        }
+        .admin-navbar-right {
+             .admin-user-menu {
+                span {
+                    display: none; // Hide user name on small screens
+                }
+             }
+        }
+    }
+}

@@ -1,0 +1,105 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "../abstracts/fonts" as *;
+
+.admin-sidebar {
+    background-color: $grey-dark; // Dark background for sidebar
+    color: $white;
+    width: 250px; // Default width
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    padding-top: 80px; // Space for the navbar
+    box-shadow: $shadow-lg;
+    transition: transform 0.3s ease-in-out;
+    z-index: 999; // Below navbar, above content
+
+    &.closed {
+        transform: translateX(-100%); // Slide out
+        @include respond-to(min-width, $breakpoint-md) {
+            transform: translateX(0); // On larger screens, keep it open if desired
+            width: 70px; // Collapsed width
+            .admin-nav-label {
+                display: none; // Hide labels
+            }
+            .admin-nav-item {
+                justify-content: center; // Center icons
+            }
+        }
+        @include respond-to(max-width, $breakpoint-md) {
+            transform: translateX(-100%); // Ensure it's closed on smaller screens
+        }
+    }
+
+    &.open {
+        transform: translateX(0); // Slide in
+    }
+
+    nav {
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: $spacing-xs; // Space between items
+        }
+
+        .admin-nav-item {
+            display: flex;
+            align-items: center;
+            padding: $spacing-sm $spacing-md;
+            color: $grey-light;
+            text-decoration: none;
+            font-family: $font-urbanist;
+            font-weight: 500;
+            transition: all 0.2s ease-in-out;
+            border-left: 4px solid transparent; // For active indicator
+
+            svg {
+                margin-right: $spacing-sm;
+                flex-shrink: 0; // Prevent icons from shrinking
+            }
+
+            &:hover {
+                background-color: rgba($white, 0.1);
+                color: $white;
+                border-left-color: $brand-red;
+            }
+
+            &.active {
+                background-color: rgba($brand-red, 0.2);
+                color: $white;
+                border-left-color: $brand-red;
+                font-weight: bold;
+                svg {
+                    color: $brand-red; // Highlight active icon
+                }
+            }
+        }
+    }
+
+    // Responsive adjustments
+    @include respond-to(max-width, $breakpoint-md) {
+        width: 220px; // Slightly narrower on tablets
+        padding-top: 60px; // Adjust for smaller navbar
+        &.closed {
+            transform: translateX(-100%);
+        }
+    }
+
+    @include respond-to(max-width, $breakpoint-sm) {
+        width: 100%; // Full width on small phones
+        max-width: 250px; // Still a max width
+        padding-top: 60px;
+        left: -100%; // Start off-screen
+        &.open {
+            left: 0;
+        }
+        &.closed {
+            left: -100%;
+        }
+    }
+}

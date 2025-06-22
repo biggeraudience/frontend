@@ -1,0 +1,83 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "../abstracts/fonts" as *;
+
+.modal-overlay {
+    @include center-flex; // Use your flex center mixin
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($black, 0.6); // Dark semi-transparent background
+    z-index: 2000; // Above everything else
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+
+    &.open {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+.modal-content {
+    background-color: $white;
+    border-radius: $border-radius-lg;
+    box-shadow: $shadow-lg;
+    padding: $spacing-xl;
+    position: relative;
+    max-width: 500px;
+    width: 90%; // Responsive width
+    transform: translateY(-20px); // Start slightly up
+    transition: transform 0.3s ease;
+
+    .modal-overlay.open & {
+        transform: translateY(0); // Slide into place
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: $spacing-lg;
+
+        h3 {
+            font-family: $font-orbitron;
+            font-size: 1.8rem;
+            color: $black;
+            margin-bottom: 0; // Reset default margin
+        }
+
+        .close-button {
+            @include button-reset;
+            font-size: 1.5rem;
+            color: $grey-medium;
+            &:hover {
+                color: $brand-red;
+            }
+        }
+    }
+
+    .modal-body {
+        font-family: $font-urbanist;
+        color: $grey-dark;
+        margin-bottom: $spacing-xl;
+    }
+
+    .modal-footer {
+        display: flex;
+        justify-content: flex-end; // Align buttons to the right
+        gap: $spacing-md; // Space between buttons
+    }
+}
+
+// Responsive adjustments
+@include respond-to(max-width, $breakpoint-sm) {
+    .modal-content {
+        padding: $spacing-lg;
+    }
+    .modal-header h3 {
+        font-size: 1.5rem;
+    }
+}

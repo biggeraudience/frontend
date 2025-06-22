@@ -1,0 +1,17 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "../abstracts/fonts" as *;
+
+.admin-page {
+    // Inherits general admin page styles
+    // Add any styles specific to the Inquiries page here
+    &.admin-inquiries-page {
+        // For example:
+        // .inquiry-card {
+        //     background-color: $grey-light;
+        //     margin-bottom: $spacing-md;
+        //     padding: $spacing-md;
+        //     border-radius: $border-radius-sm;
+        // }
+    }
+}

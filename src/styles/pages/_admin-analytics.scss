@@ -1,0 +1,58 @@
+// src/styles/pages/_admin-analytics.scss
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "../abstracts/fonts" as *;
+
+.admin-page.admin-analytics-page {
+    .analytics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: $spacing-xl;
+        margin-top: $spacing-lg;
+
+        @include respond-to(max-width, $breakpoint-md) {
+            grid-template-columns: 1fr; // Stack charts on smaller screens
+        }
+    }
+
+    .chart-card {
+        background-color: $white;
+        border-radius: $border-radius-md;
+        box-shadow: $shadow-sm;
+        padding: $spacing-lg;
+        border: 1px solid $grey-light;
+
+        h3 {
+            font-family: $font-urbanist;
+            font-size: 1.4rem;
+            color: $black;
+            margin-bottom: $spacing-lg;
+            text-align: center;
+        }
+
+        // Style for recharts elements if needed (e.g., custom tooltip, legend)
+        .recharts-wrapper {
+            font-family: $font-urbanist; // Ensure text in charts uses Urbanist
+        }
+        .recharts-surface {
+            // Optional: for general SVG styling within charts
+        }
+        .recharts-tooltip-wrapper {
+            // Background and text color for tooltips
+            .recharts-tooltip-item {
+                color: $white !important;
+            }
+        }
+        .recharts-legend-wrapper {
+             .recharts-legend-item {
+                font-family: $font-urbanist;
+                color: $grey-dark !important;
+            }
+        }
+        .recharts-cartesian-axis-tick {
+            .recharts-text {
+                fill: $grey-medium !important; // Axis label color
+            }
+        }
+    }
+}

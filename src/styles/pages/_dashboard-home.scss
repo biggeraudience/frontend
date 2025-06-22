@@ -1,0 +1,45 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "../abstracts/fonts" as *;
+
+.dashboard-home {
+    padding: $spacing-xl 0; // Padding inside the content area
+    
+    h2 {
+        font-family: $font-orbitron;
+        color: $black;
+        margin-bottom: $spacing-xxl; // More space below main title
+        text-align: center;
+    }
+
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); // Responsive grid
+        gap: $spacing-xl; // Space between cards
+        margin-bottom: $spacing-xxl; // Space below the grid
+    }
+
+    // Add more sections here as your dashboard grows
+}
+
+// Responsive adjustments
+@include respond-to(max-width, $breakpoint-md) {
+    .dashboard-home {
+        padding: $spacing-lg 0;
+        h2 {
+            font-size: 2rem;
+            margin-bottom: $spacing-xl;
+        }
+        .dashboard-grid {
+            gap: $spacing-lg;
+        }
+    }
+}
+
+@include respond-to(max-width, $breakpoint-sm) {
+    .dashboard-home {
+        h2 {
+            font-size: 1.75rem;
+        }
+    }
+}

@@ -1,0 +1,61 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "../abstracts/fonts" as *;
+
+.admin-table-container {
+    width: 100%;
+    overflow-x: auto; // Enable horizontal scrolling for tables on small screens
+    margin-top: $spacing-lg;
+    background-color: $white;
+    border-radius: $border-radius-md;
+    box-shadow: $shadow-sm;
+    padding: $spacing-md; // Padding around the table
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: $font-urbanist;
+
+    thead {
+        th {
+            background-color: $grey-light;
+            color: $grey-dark;
+            padding: $spacing-md;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid $grey;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+    }
+
+    tbody {
+        tr {
+            border-bottom: 1px solid $grey-light;
+
+            &:nth-child(even) {
+                background-color: $grey-light; // Zebra striping
+            }
+
+            &:hover {
+                background-color: rgba($brand-red, 0.05); // Subtle hover effect
+            }
+
+            td {
+                padding: $spacing-md;
+                vertical-align: middle;
+                color: $grey-dark;
+
+                &.actions {
+                    display: flex;
+                    gap: $spacing-sm; // Space between action buttons
+                    .button { // Target your button component
+                        padding: $spacing-xs $spacing-sm;
+                        font-size: 0.85rem;
+                    }
+                }
+            }
+        }
+    }
+}

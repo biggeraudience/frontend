@@ -1,3 +1,4 @@
+// src/styles/abstracts/_mixins.scss
 @use "variables" as *;
 
 // FLEX CENTER
@@ -7,12 +8,17 @@
   justify-content: center;
 }
 
-// RESPONSIVE MEDIA - Enhanced for min-width, max-width, and ranges
-// Usage:
-// @include respond-to(min-width, $breakpoint-sm) { ... }
-// @include respond-to(max-width, $breakpoint-md) { ... }
-// @include respond-to(between, $breakpoint-sm, $breakpoint-lg) { ... }
-// @include respond-to(min-width, 280px) { ... } // Custom breakpoint
+// BUTTON RESET (Add this mixin)
+@mixin button-reset {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
 @mixin respond-to($type, $breakpoint1, $breakpoint2: null) {
   @if $type == min-width {
     @media (min-width: $breakpoint1) {
@@ -46,7 +52,6 @@
     @warn "Unknown type #{$type} in respond-to mixin. Please use 'min-width', 'max-width', 'only-screen', 'up', 'down', or 'between'.";
   }
 }
-
 
 // SCREEN-READER ONLY
 @mixin sr-only {

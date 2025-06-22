@@ -2,28 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { vehicles } from '../../data/vehiclesData'; // Import your vehicles data
 import Button from '../../components/atoms/Button'; // Assuming Button component is in common folder
+import EngineSoundPlayer from '../../components/molecules/EngineSoundPlayer'; // Import the new component
 
 const VehicleDetail = () => {
-    const { id } = useParams(); // Get the vehicle ID from the URL
+    const { id } = useParams();
     const navigate = useNavigate();
     const [vehicle, setVehicle] = useState(null);
 
     useEffect(() => {
-        // Find the vehicle by ID
         const foundVehicle = vehicles.find(v => v.id === id);
         if (foundVehicle) {
             setVehicle(foundVehicle);
-            // Scroll to the top when a new vehicle is loaded
             window.scrollTo(0, 0);
         } else {
-            // If vehicle not found, navigate to a 404 page or showroom
-            navigate('/showroom'); // Redirect to showroom if vehicle not found
+            navigate('/showroom');
             console.error(`Vehicle with ID: ${id} not found.`);
         }
     }, [id, navigate]);
 
     if (!vehicle) {
-        // You could render a loading spinner or a 'Vehicle Not Found' message here
         return (
             <div className="vehicle-detail-loading-state">
                 <p>Loading vehicle details or vehicle not found...</p>
@@ -60,14 +57,16 @@ const VehicleDetail = () => {
             {/* Image Gallery Section */}
             <section className="vehicle-gallery-section">
                 <img src={vehicle.imageUrl} alt={`${vehicle.make} ${vehicle.model}`} className="main-vehicle-image" />
-                {/* Placeholder for additional gallery images/360 view */}
                 <div className="thumbnail-gallery">
-                    {/* In a real app, you'd map through an array of image URLs */}
                     <img src={vehicle.imageUrl} alt="Thumbnail 1" className="thumbnail active" />
                     <img src="https://placehold.co/100x60/cccccc/000000?text=Interior" alt="Thumbnail 2" className="thumbnail" />
                     <img src="https://placehold.co/100x60/cccccc/000000?text=Engine" alt="Thumbnail 3" className="thumbnail" />
                     <img src="https://placehold.co/100x60/cccccc/000000?text=360" alt="Thumbnail 4" className="thumbnail" />
                 </div>
+
+                {/* Engine Sound Player Section - Pass the single engineSound URL */}
+                {/* Only render if vehicle.engineSound exists */}
+                {vehicle.engineSound && <EngineSoundPlayer audioSrc={vehicle.engineSound} />}
             </section>
 
             {/* Vehicle Details & Specifications */}
@@ -92,7 +91,6 @@ const VehicleDetail = () => {
                     <div className="spec-item">
                         <strong>Mileage:</strong> <span>{vehicle.mileage}</span>
                     </div>
-                    {/* Add more specific luxury/sports car specs here */}
                     <div className="spec-item">
                         <strong>0-60 MPH:</strong> <span>(e.g., 3.2s)</span> {/* Placeholder */}
                     </div>
@@ -165,7 +163,6 @@ const VehicleDetail = () => {
             <section className="similar-vehicles-section">
                 <h2>Similar Vehicles You Might Like</h2>
                 <div className="similar-vehicles-grid">
-                    {/* Render a few vehicle cards here, perhaps filtered from `vehicles` data */}
                     <div className="placeholder-vehicle-card">
                         <img src="https://placehold.co/200x120/cccccc/000000?text=Car+A" alt="Similar Car A" />
                         <p>Luxury Sedan</p>

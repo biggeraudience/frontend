@@ -1,0 +1,47 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "../abstracts/fonts" as *;
+
+.dashboard-card {
+    background-color: $white;
+    border-radius: $border-radius-md;
+    box-shadow: $shadow-sm;
+    padding: $spacing-lg;
+    text-align: center;
+    text-decoration: none; // For the Link component
+    color: $grey-dark;
+    transition: all 0.3s ease;
+    border: 1px solid $grey-light;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: $shadow-md;
+        border-color: $brand-red;
+    }
+
+    h3 {
+        font-family: $font-urbanist; // Dashboard card titles
+        font-size: 1.2rem;
+        color: $grey-dark;
+        margin-bottom: $spacing-xs;
+    }
+
+    p {
+        font-family: $font-digital7; // Use Digital-7 for numbers
+        font-size: 3rem;
+        color: $brand-red;
+        margin-bottom: $spacing-sm;
+        line-height: 1; // Prevent extra space for large numbers
+    }
+
+    span {
+        display: block; // Make "View Details" a block element
+        font-family: $font-urbanist;
+        font-size: 0.9rem;
+        color: $grey-medium;
+        font-weight: 600;
+        &:hover {
+            color: $brand-red;
+        }
+    }
+}
