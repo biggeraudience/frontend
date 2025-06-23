@@ -1,7 +1,6 @@
-/*    /index.html   200
-# netlify.toml
+
 [build]
-  base    = ""          
+  base    = ""
   publish = "dist"
   command = "npm run build"
 
