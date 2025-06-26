@@ -23,7 +23,9 @@ export const vehicles = [
     engineSound: porsche911Gt3Sound,
     status: "available",
     isFeatured: false,
-    lastUpdated: "2025-06-20T12:00:00Z"
+    lastUpdated: "2025-06-20T12:00:00Z",
+    // ADD THIS LINE:
+    features: ["Carbon Ceramic Brakes", "GT3 Wing", "Sport Exhaust System", "Alcantara Interior"]
   },
   {
     id: "v002",
@@ -37,7 +39,9 @@ export const vehicles = [
     engineSound: mercedesG63Sound,
     status: "auctioning",
     isFeatured: true,
-    lastUpdated: "2025-06-18T09:30:00Z"
+    lastUpdated: "2025-06-18T09:30:00Z",
+    // ADD THIS LINE:
+    features: ["Burmester Surround Sound", "G Manufaktur Interior Package", "Night Package", "360-degree Camera"]
   },
   {
     id: "v003",
@@ -51,7 +55,9 @@ export const vehicles = [
     engineSound: "path/to/ferrari-sound.mp3",
     status: "sold",
     isFeatured: false,
-    lastUpdated: "2025-05-27T15:45:00Z"
+    lastUpdated: "2025-05-27T15:45:00Z",
+    // ADD THIS LINE:
+    features: ["Carbon Fibre Racing Seats", "Front Suspension Lifter", "Scuderia Ferrari Shields"]
   },
   {
     id: "v004",
@@ -65,7 +71,9 @@ export const vehicles = [
     engineSound: "path/to/cullinan-sound.mp3",
     status: "pending_inspection",
     isFeatured: true,
-    lastUpdated: "2025-06-10T11:20:00Z"
+    lastUpdated: "2025-06-10T11:20:00Z",
+    // ADD THIS LINE:
+    features: ["Starlight Headliner", "Rear Entertainment System", "Picnic Tables", "Signature Gold Spirit of Ecstasy"]
   },
   {
     id: "v005",
@@ -79,7 +87,9 @@ export const vehicles = [
     engineSound: "path/to/huracan-sound.mp3",
     status: "available",
     isFeatured: false,
-    lastUpdated: "2025-06-15T08:00:00Z"
+    lastUpdated: "2025-06-15T08:00:00Z",
+    // ADD THIS LINE:
+    features: ["LDVI System", "Magnetorheological Suspension", "Forged Carbon Fibre Details"]
   },
   {
     id: "v006",
@@ -93,6 +103,8 @@ export const vehicles = [
     engineSound: "path/to/r8-sound.mp3",
     status: "available",
     isFeatured: false,
-    lastUpdated: "2025-06-12T14:10:00Z"
+    lastUpdated: "2025-06-12T14:10:00Z",
+    // ADD THIS LINE:
+    features: ["Laser Headlights", "Virtual Cockpit", "Sport Exhaust", "Bang & Olufsen Sound System"]
   }
 ];

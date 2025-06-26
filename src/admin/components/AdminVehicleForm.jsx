@@ -1,6 +1,7 @@
 // src/admin/components/AdminVehicleForm.jsx
 import React, { useState, useEffect } from 'react';
 import Button from '../../components/atoms/Button';
+import { useUploadVehicleImageMutation } from '../../../store/api'; // <-- Import the new hook
 
 // Utility to generate a simple unique ID (for mock data)
 const generateUniqueId = () => `v${Date.now()}`;
@@ -19,13 +20,17 @@ const AdminVehicleForm = ({ vehicle, onSubmit, onCancel }) => {
         engine: vehicle ? vehicle.engine : '',
         transmission: vehicle ? vehicle.transmission : '',
         fuelType: vehicle ? vehicle.fuelType : '',
-        imageUrl: vehicle ? vehicle.imageUrl : 'https://placehold.co/600x400/E10600/FFFFFF?text=Vehicle+Image', // Default placeholder
+        // Initialize imageUrls as an empty array or from existing vehicle data
+        imageUrls: vehicle ? vehicle.image_urls || [] : [],
         features: vehicle ? vehicle.features.join(', ') : '', // Convert array to comma-separated string
         description: vehicle ? vehicle.description : '',
         status: vehicle ? vehicle.status : 'available',
         isFeatured: vehicle ? vehicle.isFeatured : false,
-        lastUpdated: vehicle ? vehicle.lastUpdated : new Date().toISOString()
+        lastUpdated: vehicle ? vehicle.lastUpdated : new Date().toISOString(),
     });
+
+    // RTK Query mutation hook for image upload
+    const [uploadVehicleImage, { isLoading: uploading }] = useUploadVehicleImageMutation();
 
     // Update form data if the `vehicle` prop changes (e.g., when switching from add to edit mode)
     useEffect(() => {
@@ -42,12 +47,12 @@ const AdminVehicleForm = ({ vehicle, onSubmit, onCancel }) => {
                 engine: vehicle.engine,
                 transmission: vehicle.transmission,
                 fuelType: vehicle.fuelType,
-                imageUrl: vehicle.imageUrl,
+                imageUrls: vehicle.image_urls || [], // Use the new imageUrls field
                 features: vehicle.features.join(', '),
                 description: vehicle.description,
                 status: vehicle.status,
                 isFeatured: vehicle.isFeatured,
-                lastUpdated: vehicle.lastUpdated
+                lastUpdated: vehicle.lastUpdated,
             });
         } else {
             // Reset form for a new vehicle if `vehicle` prop is null
@@ -63,12 +68,12 @@ const AdminVehicleForm = ({ vehicle, onSubmit, onCancel }) => {
                 engine: '',
                 transmission: '',
                 fuelType: '',
-                imageUrl: 'https://placehold.co/600x400/E10600/FFFFFF?text=Vehicle+Image',
+                imageUrls: [], // Reset image URLs for a new vehicle
                 features: '',
                 description: '',
                 status: 'available',
                 isFeatured: false,
-                lastUpdated: new Date().toISOString()
+                lastUpdated: new Date().toISOString(),
             });
         }
     }, [vehicle]);
@@ -81,6 +86,30 @@ const AdminVehicleForm = ({ vehicle, onSubmit, onCancel }) => {
         }));
     };
 
+    // Handler when user picks files
+    const handleFilesChange = async (e) => {
+        const files = Array.from(e.target.files);
+        if (!files.length) return;
+
+        // build FormData for the upload mutation
+        const fd = new FormData();
+        files.forEach((f) => fd.append('files', f));
+
+        try {
+            // Call the upload mutation and unwrap the result
+            const { urls } = await uploadVehicleImage(fd).unwrap();
+            
+            // Merge the new URLs into the form state
+            setFormData((f) => ({
+                ...f,
+                imageUrls: [...f.imageUrls, ...urls], // Merge with existing URLs
+            }));
+        } catch (err) {
+            console.error('Image upload failed', err);
+            // TODO: show a user-friendly error toast
+        }
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         // Prepare data for submission: convert features string back to array
@@ -91,7 +120,9 @@ const AdminVehicleForm = ({ vehicle, onSubmit, onCancel }) => {
             year: parseInt(formData.year, 10),
             price: parseFloat(formData.price),
             // mileage needs careful parsing as it has "miles", leaving as string for now
-            lastUpdated: new Date().toISOString() // Update timestamp on save
+            lastUpdated: new Date().toISOString(), // Update timestamp on save
+            // Pass the image_urls in the payload
+            image_urls: formData.imageUrls,
         };
         onSubmit(dataToSubmit);
     };
@@ -154,10 +185,27 @@ const AdminVehicleForm = ({ vehicle, onSubmit, onCancel }) => {
                     <option value="Hybrid">Hybrid</option>
                 </select>
             </div>
+            
+            {/* New! File input for image upload */}
             <div className="form-group">
-                <label htmlFor="imageUrl">Image URL</label>
-                <input type="url" id="imageUrl" name="imageUrl" value={formData.imageUrl} onChange={handleChange} />
+                <label htmlFor="images">Upload Images</label>
+                <input
+                    type="file"
+                    id="images"
+                    name="images"
+                    onChange={handleFilesChange}
+                    multiple // if you allow multiple
+                    disabled={uploading}
+                    accept="image/*" // Restrict to image files
+                />
+                {uploading && <p>Uploading…</p>}
             </div>
+
+            {/* preview thumbnails */}
+            {formData.imageUrls?.map((url, index) => (
+                <img key={index} src={url} alt={`Vehicle image ${index + 1}`} style={{ width: 80, height: 60, marginRight: 8, objectFit: 'cover', borderRadius: '4px' }} />
+            ))}
+
             <div className="form-group">
                 <label htmlFor="features">Features (comma-separated)</label>
                 <textarea id="features" name="features" value={formData.features} onChange={handleChange}></textarea>
@@ -184,8 +232,8 @@ const AdminVehicleForm = ({ vehicle, onSubmit, onCancel }) => {
                 <Button type="button" className="secondary-button" onClick={onCancel}>
                     Cancel
                 </Button>
-                <Button type="submit" className="primary-button">
-                    {vehicle ? 'Save Changes' : 'Add Vehicle'}
+                <Button type="submit" className="primary-button" disabled={uploading}>
+                    {uploading ? 'Uploading & Saving...' : (vehicle ? 'Save Changes' : 'Add Vehicle')}
                 </Button>
             </div>
         </form>

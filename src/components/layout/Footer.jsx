@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'; // Assuming you want internal links
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger'; // For scroll-triggered animation
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa'; // Example icons, install if not present
-
+ 
 import '../../styles/components/_footer.scss'; // Link to our SCSS file
 
 // Register ScrollTrigger plugin
