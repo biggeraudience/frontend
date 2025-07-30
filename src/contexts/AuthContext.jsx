@@ -1,104 +1,94 @@
-// src/contexts/AuthContext.jsx
-import React, { createContext, useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
-const AuthContext = createContext(null);
+const AuthContext = createContext();
+
+export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [user, setUser] = useState(null); // Will store { email, role }
-    const [loading, setLoading] = useState(true);
-    const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        // On app load, check for stored token/user info
-        const storedUser = localStorage.getItem('user');
-        const storedToken = localStorage.getItem('token'); // Or actual JWT/session token
+  const API_BASE = import.meta.env.VITE_BACKEND_URL;
 
-        if (storedUser && storedToken) {
-            try {
-                const parsedUser = JSON.parse(storedUser);
-                setUser(parsedUser);
-                setIsAuthenticated(true);
-            } catch (error) {
-                console.error("Failed to parse stored user data:", error);
-                handleLogout(); // Clear invalid data
-            }
-        }
-        setLoading(false);
-    }, []);
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
 
-    const handleLogin = async (email, password) => {
-        setLoading(true);
-        // In a real app, this would be an API call
-        // const response = await fetch('/api/login', { method: 'POST', body: JSON.stringify({ email, password }) });
-        // const data = await response.json();
+    if (storedUser && token) {
+      setUser(JSON.parse(storedUser));
+      setIsAuthenticated(true);
+    }
+    setLoading(false);
+  }, []);
 
-        // Simulate API call delay and response
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                if (email === 'admin@example.com' && password === 'adminpass') {
-                    const adminUser = { email: email, role: 'admin' };
-                    localStorage.setItem('user', JSON.stringify(adminUser));
-                    localStorage.setItem('token', 'fake-admin-token');
-                    setUser(adminUser);
-                    setIsAuthenticated(true);
-                    resolve({ success: true, user: adminUser });
-                } else if (email === 'user@example.com' && password === 'userpass') {
-                    const regularUser = { email: email, role: 'user' };
-                    localStorage.setItem('user', JSON.stringify(regularUser));
-                    localStorage.setItem('token', 'fake-user-token');
-                    setUser(regularUser);
-                    setIsAuthenticated(true);
-                    resolve({ success: true, user: regularUser });
-                } else {
-                    reject({ success: false, message: 'Invalid credentials' });
-                }
-                setLoading(false);
-            }, 1000);
-        });
-    };
+  const handleRegister = async (username, email, password) => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${API_BASE}/api/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, email, password }),
+      });
 
-    const handleRegister = async (username, email, password) => {
-        setLoading(true);
-        // Simulate API call delay and response
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                // In a real app, you'd check if email is unique and save to DB
-                console.log("Registering:", { username, email, password });
-                // For simplicity, let's assume all registrations are 'user' roles for now
-                const newUser = { email: email, role: 'user' };
-                // Don't log them in immediately, just simulate registration success
-                resolve({ success: true, user: newUser });
-                setLoading(false);
-            }, 1000);
-        });
-    };
+      const data = await res.json();
+      setLoading(false);
 
-    const handleLogout = () => {
-        localStorage.removeItem('user');
-        localStorage.removeItem('token');
-        setUser(null);
-        setIsAuthenticated(false);
-        navigate('/auth/login'); // Redirect to login after logout
-    };
+      if (!res.ok) throw new Error(data.message || 'Registration failed');
 
-    const value = {
-        isAuthenticated,
+      return { success: true, user: data.user };
+    } catch (err) {
+      setLoading(false);
+      throw new Error(err.message || 'Registration failed');
+    }
+  };
+
+  const handleLogin = async (email, password) => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${API_BASE}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+      setLoading(false);
+
+      if (!res.ok) throw new Error(data.message || 'Login failed');
+
+      localStorage.setItem('user', JSON.stringify(data.user));
+      localStorage.setItem('token', data.token);
+
+      setUser(data.user);
+      setIsAuthenticated(true);
+
+      return { success: true, user: data.user };
+    } catch (err) {
+      setLoading(false);
+      throw new Error(err.message || 'Login failed');
+    }
+  };
+
+  const logout = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    setUser(null);
+    setIsAuthenticated(false);
+  };
+
+  return (
+    <AuthContext.Provider
+      value={{
         user,
+        isAuthenticated,
         loading,
-        login: handleLogin,
         register: handleRegister,
-        logout: handleLogout,
-    };
-
-    return (
-        <AuthContext.Provider value={value}>
-            {children}
-        </AuthContext.Provider>
-    );
-};
-
-export const useAuth = () => {
-    return useContext(AuthContext);
+        login: handleLogin,
+        logout,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };
