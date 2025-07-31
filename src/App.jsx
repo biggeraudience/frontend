@@ -20,10 +20,9 @@ import VehicleDetail      from './components/pages/VehicleDetail';
 import BiddingPage        from './components/pages/BiddingPage';
 
 // Auth pages — folder is lowercase `auth`
-import LoginPage          from './pages/auth/LoginPage';
-import RegisterPage       from './pages/auth/RegisterPage';
-import ForgotPasswordPage from './pages/auth/ForgotPasswordPage';
-
+import LoginPage           from './components/pages/LoginPage';
+import RegisterPage        from './components/pages/RegisterPage';
+import ForgotPasswordPage  from './components/pages/ForgotPasswordPage';
 // Admin
 import AdminLayout      from './admin/layouts/AdminLayout';
 import DashboardHome    from './admin/pages/DashboardHome';
